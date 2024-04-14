@@ -1,0 +1,16 @@
+{
+    "name": "ktara/itransition-task-3",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Itransition\\": "src"
+        }
+    },
+    "authors": [
+        {
+            "name": "Kirill Tarasenko",
+            "email": "ktarasenko003@gmail.com"
+        }
+    ],
+    "require": {}
+}
