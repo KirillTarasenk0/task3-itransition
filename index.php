@@ -2,6 +2,8 @@
 
 require_once 'vendor/autoload.php';
 
+use Itransition\Classes\WinnerRule;
+
 function areAllElementsUnique(array $array): bool
 {
     $uniqueArray = array_unique($array);
@@ -12,7 +14,8 @@ array_shift($argv);
 if (areAllElementsUnique($argv)) {
     if (count($argv) >= 3) {
         if (count($argv) % 2 !== 0) {
-            print_r($argv);
+            $winnerRule = new WinnerRule($argv);
+            echo $winnerRule->determineWinner(1, 0);
         } else {
             echo 'You passed an even number of arguments. Please re-enter. Example: "rock Spock paper lizard scissors"';
         }
