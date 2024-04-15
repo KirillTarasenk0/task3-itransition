@@ -3,7 +3,6 @@
 namespace Itransition\Classes;
 
 use Itransition\Traits\UniqueElements;
-use Itransition\Classes\KeyGenerator;
 
 class GameRules
 {
@@ -19,16 +18,16 @@ class GameRules
             if (count($moves) >= 3) {
                 if (count($moves) % 2 !== 0) {
                     $this->moves = $moves;
-                    $this->computerMove = $this->generateComputerMovie();
+                    $this->computerMove = $this->generateComputerMove();
                     $this->key = KeyGenerator::generateKey();
                 } else {
-                    echo 'You passed an even number of arguments. Please re-enter. Example: "rock Spock paper lizard scissors"';
+                    echo 'You passed an even number of arguments. Please re-enter. Example: "rock Spock paper lizard scissors"' . PHP_EOL;
                 }
             } else {
-                echo 'You passed the number of arguments less than 3. Please repeat your input. Example: "rock Spock paper lizard scissors"';
+                echo 'You passed the number of arguments less than 3. Please repeat your input. Example: "rock Spock paper lizard scissors"' . PHP_EOL;
             }
         } else {
-            echo 'You passed arguments that included duplicate values. Please re-enter again. Example: “rock Spock paper lizard scissors.”';
+            echo 'You passed arguments that included duplicate values. Please re-enter again. Example: “rock Spock paper lizard scissors.”' . PHP_EOL;
         }
     }
     public function determineWinner(int $playerIndex, int $computerIndex): string
@@ -50,8 +49,21 @@ class GameRules
         if (in_array($computerIndex, $previousIndexes)) return 'Lose';
         return 'Draw';
     }
-    private function generateComputerMovie(): int
+    private function generateComputerMove(): int
     {
         return $this->moves[rand(0, count($this->moves) - 1)];
+    }
+    private function showHMAC(): void
+    {
+        echo 'HMAC: ' . HMACGenerator::generateHMAC($this->computerMove, $this->key) . PHP_EOL;
+    }
+    private function displayMenu(): void
+    {
+        echo 'Available moves:' . PHP_EOL;
+        foreach ($this->moves as $index => $move) {
+            echo $index + 1 . " - $move" . PHP_EOL;
+        }
+        echo '0 - exit' . PHP_EOL;
+        echo '? - help' . PHP_EOL;
     }
 }
