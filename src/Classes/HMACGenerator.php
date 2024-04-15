@@ -4,8 +4,8 @@ namespace Itransition\Classes;
 
 class HMACGenerator
 {
-    public function __construct()
+    public static function generateHMAC(string $message, string $key): string
     {
-        echo 'Hello world';
+        return hash_hmac('sha256', $message, $key);
     }
 }
