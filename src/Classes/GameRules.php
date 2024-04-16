@@ -66,4 +66,23 @@ class GameRules
         echo '0 - exit' . PHP_EOL;
         echo '? - help' . PHP_EOL;
     }
+    private function getUserMove()
+    {
+        $input = readline('Enter your move: ');
+        if ($input === '?') {
+            $this->displayHelp();
+            return $this->getUserMove();
+        } elseif (!is_numeric($input) || $input < 0 || $input >= count($this->moves)) {
+            echo 'Invalid move. Please try again' . PHP_EOL;
+            return $this->getUserMove();
+        } elseif ($input === 0) {
+            exit('Thanks for the game! Bye!' . PHP_EOL);
+        } else {
+            $this->userMove = $this->moves[$input - 1];
+        }
+    }
+    private function displayHelp(): void
+    {
+
+    }
 }
