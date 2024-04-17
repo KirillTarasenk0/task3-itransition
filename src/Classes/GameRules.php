@@ -31,7 +31,7 @@ class GameRules
             echo 'You passed arguments that included duplicate values. Please re-enter again. Example: “rock Spock paper lizard scissors.”' . PHP_EOL;
         }
     }
-    public function determineWinner(int $playerIndex, int $computerIndex): string
+    public function determineWinner(int $playerIndex, int $computerIndex)
     {
         $half = floor(count($this->moves) / 2);
         $nextIndexes = [];
@@ -40,19 +40,23 @@ class GameRules
             $nextIndexes[] = ($playerIndex + $i) % count($this->moves);
             $previousIndexes[] = ($playerIndex - $i + count($this->moves)) % count($this->moves);
         }
-        $previousIndexesLength = count($previousIndexes);
-        for ($i = 0; $i < $previousIndexesLength; $i++) {
-            if ($previousIndexes[$i] === 0) {
-                $previousIndexes[$i] = end($this->moves);
-            }
+        $previousIndexes = array_map(function($index) {
+            return ($index === 0) ? count($this->moves) : $index;
+        }, $previousIndexes);
+        if (in_array($computerIndex, $nextIndexes)) {
+            return 'Win';
         }
-        if (in_array($computerIndex, $nextIndexes)) return 'Win';
-        if (in_array($computerIndex, $previousIndexes)) return 'Lose';
-        return 'Draw';
+        if (in_array($computerIndex, $previousIndexes)) {
+            return 'Lose';
+        }
+        if ($computerIndex === $playerIndex) {
+            return 'Draw';
+        }
     }
     private function generateComputerMove(): int
     {
-        return $this->moves[rand(0, count($this->moves) - 1)];
+        $randomIndex = array_rand($this->moves);
+        return (int)$randomIndex + 1;
     }
     private function showHMAC(): void
     {
@@ -76,10 +80,10 @@ class GameRules
         } elseif (!is_numeric($input) || $input < 0 || $input >= count($this->moves)) {
             echo 'Invalid move. Please try again' . PHP_EOL;
             return $this->getUserMove();
-        } elseif ($input === 0) {
+        } elseif ($input == 0) {
             exit('Thanks for the game! Bye!' . PHP_EOL);
         } else {
-            $this->userMove = $this->moves[$input - 1];
+            $this->userMove = $input;
         }
     }
     private function displayHelp(): void
