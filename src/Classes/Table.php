@@ -13,7 +13,7 @@ class Table
         foreach ($moves as $firstKey => $firstMove) {
             $row = [$firstMove];
             foreach ($moves as $secondKey => $secondMove) {
-                $result = $game->determineWinner($secondKey, $firstKey);
+                $result = $game->determineWinner($secondKey + 1, $firstKey + 1);
                 $row[] = $result;
             }
             $table->addRow($row);
