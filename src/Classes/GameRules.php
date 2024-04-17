@@ -3,6 +3,7 @@
 namespace Itransition\Classes;
 
 use Itransition\Traits\UniqueElements;
+use Itransition\Classes\Table;
 
 class GameRules
 {
@@ -83,6 +84,19 @@ class GameRules
     }
     private function displayHelp(): void
     {
-        
+        $table = new Table();
+        $generatedTable = $table->generateTable($this, $this->moves);
+        $table->displayTable($generatedTable);
+    }
+    public function play(): void
+    {
+        $this->showHMAC();
+        $this->displayMenu();
+        $this->getUserMove();
+        echo 'Your move: ' . $this->userMove . PHP_EOL;
+        echo 'Computer move: ' . $this->computerMove . PHP_EOL;
+        $result = $this->determineWinner($this->userMove, $this->computerMove);
+        echo 'Result: ' . $result . PHP_EOL;
+        echo 'HMAC key: ' . $this->key . PHP_EOL;
     }
 }
