@@ -76,7 +76,7 @@ class Game
         if ($input == '?') {
             $this->displayHelp();
             return $this->getUserMove();
-        } elseif (!is_numeric($input) || $input < 0 || $input >= count($this->moves)) {
+        } elseif (!is_numeric($input) || $input < 0 || $input > count($this->moves)) {
             echo 'Invalid move. Please try again' . PHP_EOL;
             return $this->getUserMove();
         } elseif ($input == 0) {
