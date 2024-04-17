@@ -5,7 +5,7 @@ namespace Itransition\Classes;
 use Itransition\Traits\UniqueElements;
 use Itransition\Classes\Table;
 
-class GameRules
+class Game
 {
     use UniqueElements;
     private array $moves;
@@ -22,16 +22,16 @@ class GameRules
                     $this->computerMove = $this->generateComputerMove();
                     $this->key = KeyGenerator::generateKey();
                 } else {
-                    echo 'You passed an even number of arguments. Please re-enter. Example: "rock Spock paper lizard scissors"' . PHP_EOL;
+                    exit('You passed an even number of arguments. Please re-enter. Example: "rock Spock paper lizard scissors"' . PHP_EOL);
                 }
             } else {
-                echo 'You passed the number of arguments less than 3. Please repeat your input. Example: "rock Spock paper lizard scissors"' . PHP_EOL;
+                exit('You passed the number of arguments less than 3. Please repeat your input. Example: "rock Spock paper lizard scissors"' . PHP_EOL);
             }
         } else {
-            echo 'You passed arguments that included duplicate values. Please re-enter again. Example: “rock Spock paper lizard scissors.”' . PHP_EOL;
+            exit('You passed arguments that included duplicate values. Please re-enter again. Example: “rock Spock paper lizard scissors.”' . PHP_EOL);
         }
     }
-    public function determineWinner(int $playerIndex, int $computerIndex)
+    public function determineWinner(int $playerIndex, int $computerIndex): string
     {
         $half = floor(count($this->moves) / 2);
         $nextIndexes = [];
@@ -49,10 +49,9 @@ class GameRules
         if (in_array($computerIndex, $previousIndexes)) {
             return 'Lose';
         }
-        if ($computerIndex === $playerIndex) {
-            return 'Draw';
-        }
+        return ($playerIndex === $computerIndex) ? 'Draw' : 'Win';
     }
+
     private function generateComputerMove(): int
     {
         $randomIndex = array_rand($this->moves);
@@ -74,10 +73,10 @@ class GameRules
     private function getUserMove()
     {
         $input = readline('Enter your move: ');
-        if ($input === '?') {
+        if ($input == '?') {
             $this->displayHelp();
             return $this->getUserMove();
-        } elseif (!is_numeric($input) || $input < 0 || $input >= count($this->moves)) {
+        } elseif (!is_numeric($input) || $input < 1 || $input > count($this->moves)) {
             echo 'Invalid move. Please try again' . PHP_EOL;
             return $this->getUserMove();
         } elseif ($input == 0) {

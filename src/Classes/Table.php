@@ -6,22 +6,25 @@ use Console_Table;
 
 class Table
 {
-    public function generateTable(GameRules $gameRules, array $moves): string
+    public function generateTable(Game $game, array $moves): Console_Table
     {
         $table = new Console_Table();
         $table->setHeaders(array_merge(["v PC\\User >"], $moves));
-        foreach ($moves as $firstMove) {
+        foreach ($moves as $firstKey => $firstMove) {
             $row = [$firstMove];
-            foreach ($moves as $secondMove) {
-                $result = $gameRules->determineWinner($firstMove, $secondMove);
+            foreach ($moves as $secondKey => $secondMove) {
+                $result = $game->determineWinner($secondKey, $firstKey);
+                if (empty($result)) {
+                    $result = 'N/A';
+                }
                 $row[] = $result;
             }
             $table->addRow($row);
         }
-        return $table->getTable();
+        return $table;
     }
-    public function displayTable($table): void
+    public function displayTable(Console_Table $table): void
     {
-        $table->consoleWrite();
+        echo $table->getTable();
     }
 }

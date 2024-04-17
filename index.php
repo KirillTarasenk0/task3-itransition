@@ -2,7 +2,7 @@
 
 require_once 'vendor/autoload.php';
 
-use Itransition\Classes\GameRules;
+use Itransition\Classes\Game;
 
-$game = new GameRules($argv);
+$game = new Game($argv);
 $game->play();
