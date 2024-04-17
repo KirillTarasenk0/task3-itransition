@@ -12,5 +12,7 @@
             "email": "ktarasenko003@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "pear/console_table": "^1.3"
+    }
 }

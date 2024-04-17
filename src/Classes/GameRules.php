@@ -83,6 +83,6 @@ class GameRules
     }
     private function displayHelp(): void
     {
-
+        
     }
 }

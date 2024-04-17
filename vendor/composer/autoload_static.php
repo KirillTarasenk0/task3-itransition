@@ -22,6 +22,7 @@ class ComposerStaticInit9bccd44835e227481089aaa37c4bf9a3
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Console_Table' => __DIR__ . '/..' . '/pear/console_table/Table.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
