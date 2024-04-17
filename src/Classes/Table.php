@@ -14,9 +14,6 @@ class Table
             $row = [$firstMove];
             foreach ($moves as $secondKey => $secondMove) {
                 $result = $game->determineWinner($secondKey, $firstKey);
-                if (empty($result)) {
-                    $result = 'N/A';
-                }
                 $row[] = $result;
             }
             $table->addRow($row);
